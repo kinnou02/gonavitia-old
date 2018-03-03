@@ -32,6 +32,12 @@
   version = "v1.0.0"
 
 [[projects]]
+  name = "github.com/sony/gobreaker"
+  packages = ["."]
+  revision = "e9556a45379ef1da12e54847edb2fb3d7d566f36"
+  version = "0.3.0"
+
+[[projects]]
   name = "github.com/stretchr/testify"
   packages = ["assert"]
   revision = "12b6f73e6084dad08a7c6e575284b177ecafbc71"
@@ -40,6 +46,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "fa46a909b46fcd9ab48228f000e207808abd89b92564b9952a88cb10f3552f07"
+  inputs-digest = "cc4f189566ec2a926f7bda0be8a983535180273a102cb36cb9c4a42a0b8f00d9"
   solver-name = "gps-cdcl"
   solver-version = 1
