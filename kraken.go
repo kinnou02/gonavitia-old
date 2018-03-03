@@ -28,10 +28,10 @@ func (k *Kraken) Call(request *pbnavitia.Request) (*pbnavitia.Response, error) {
 	poller.Add(requester, zmq.POLLIN)
 	p, err := poller.Poll(k.Timeout)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err, "error during polling")
 	}
 	if len(p) < 1 {
-		return nil, errors.Wrapf(KrakenTimeout, "calling kraken %s", k.Name)
+		return nil, errors.Errorf("kraken %s timeout", k.Name)
 	}
 	raw_resp, _ := p[0].Socket.Recv(0)
 	resp := &pbnavitia.Response{}
