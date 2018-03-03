@@ -1,11 +1,15 @@
 package gonavitia
 
 import (
-	"errors"
 	"github.com/golang/protobuf/proto"
 	"github.com/kinnou02/pbnavitia"
 	zmq "github.com/pebbe/zmq2"
+	"github.com/pkg/errors"
 	"time"
+)
+
+var (
+	KrakenTimeout = errors.New("kraken timeout")
 )
 
 type Kraken struct {
@@ -27,7 +31,7 @@ func (k *Kraken) Call(request *pbnavitia.Request) (*pbnavitia.Response, error) {
 		return nil, err
 	}
 	if len(p) < 1 {
-		return nil, errors.New("fucked")
+		return nil, errors.Wrapf(KrakenTimeout, "calling kraken %s", k.Name)
 	}
 	raw_resp, _ := p[0].Socket.Recv(0)
 	resp := &pbnavitia.Response{}

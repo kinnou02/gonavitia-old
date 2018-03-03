@@ -14,6 +14,18 @@
   version = "v1.0.0"
 
 [[projects]]
+  branch = "master"
+  name = "github.com/pebbe/zmq2"
+  packages = ["."]
+  revision = "f3ad6202c431f3abb8bbe02a51c453489cf866a3"
+
+[[projects]]
+  name = "github.com/pkg/errors"
+  packages = ["."]
+  revision = "645ef00459ed84a119197bfb8d8205042c6df63d"
+  version = "v0.8.0"
+
+[[projects]]
   name = "github.com/pmezard/go-difflib"
   packages = ["difflib"]
   revision = "792786c7400a136282c1664665ae0a8db921c6c2"
@@ -28,6 +40,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "143b5b946e21fd805f8418c5818cba347465f5953078bafa47e26f60fffd6d6a"
+  inputs-digest = "fa46a909b46fcd9ab48228f000e207808abd89b92564b9952a88cb10f3552f07"
   solver-name = "gps-cdcl"
   solver-version = 1
