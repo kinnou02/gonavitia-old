@@ -34,6 +34,5 @@ jobs:
           paths:
             - "/go/pkg"
 
-      - run:
       - store_test_results:
           path: /tmp/test-results
