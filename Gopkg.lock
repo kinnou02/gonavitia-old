@@ -15,9 +15,9 @@
 
 [[projects]]
   branch = "master"
-  name = "github.com/pebbe/zmq2"
+  name = "github.com/pebbe/zmq4"
   packages = ["."]
-  revision = "f3ad6202c431f3abb8bbe02a51c453489cf866a3"
+  revision = "6decad45434f1cddeccf1dc5d9d86d8249decd19"
 
 [[projects]]
   name = "github.com/pkg/errors"
@@ -67,6 +67,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "8ec714228c4c9c6ea22f52370e3039fb4de93fc0b9d6481450ac0349b4af4942"
+  inputs-digest = "7fa1e451c8fbcb204bd120a5ec2d83578a5e511c0bd87be157ae62da36681896"
   solver-name = "gps-cdcl"
   solver-version = 1

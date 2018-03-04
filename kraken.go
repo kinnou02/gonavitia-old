@@ -5,7 +5,7 @@ import (
 
 	"github.com/golang/protobuf/proto"
 	"github.com/kinnou02/gonavitia/pbnavitia"
-	zmq "github.com/pebbe/zmq2"
+	zmq "github.com/pebbe/zmq4"
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 	"github.com/sony/gobreaker"
