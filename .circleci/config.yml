@@ -22,6 +22,7 @@ jobs:
 
       - run: make setup
       - run: make dep
+      - run: make lint
       - run:
           name: Run unit tests
           environment:
