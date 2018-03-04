@@ -1,6 +1,6 @@
 package responses
 
-type Place struct{
-    Id *string
-    Name *string
+type Place struct {
+	Id   *string
+	Name *string
 }

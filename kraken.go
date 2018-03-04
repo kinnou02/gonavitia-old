@@ -1,11 +1,13 @@
 package gonavitia
 
 import (
+	"time"
+
 	"github.com/golang/protobuf/proto"
 	"github.com/kinnou02/gonavitia/pbnavitia"
 	zmq "github.com/pebbe/zmq2"
 	"github.com/pkg/errors"
-	"time"
+	"github.com/sirupsen/logrus"
 	"github.com/sony/gobreaker"
 )
 
@@ -18,14 +20,14 @@ type Kraken struct {
 	Addr    string
 	Timeout time.Duration
 
-	cb  *gobreaker.CircuitBreaker
+	cb *gobreaker.CircuitBreaker
 }
 
-func NewKraken(name, addr string, timeout time.Duration) *Kraken{
+func NewKraken(name, addr string, timeout time.Duration) *Kraken {
 	kraken := &Kraken{
 		Name:    name,
 		Timeout: timeout,
-		Addr:   addr,
+		Addr:    addr,
 	}
 	var st gobreaker.Settings
 	st.Name = "Kraken"
@@ -35,12 +37,22 @@ func NewKraken(name, addr string, timeout time.Duration) *Kraken{
 }
 
 func (k *Kraken) Call(request *pbnavitia.Request) (*pbnavitia.Response, error) {
-	rep, err := k.cb.Execute(func ()(interface{}, error){
+	rep, err := k.cb.Execute(func() (interface{}, error) {
 		requester, _ := zmq.NewSocket(zmq.REQ)
-		requester.Connect(k.Addr)
-		defer requester.Close()
+		err := requester.Connect(k.Addr)
+		if err != nil {
+			return nil, errors.Wrap(err, "error while connecting")
+		}
+		defer func() {
+			if err = requester.Close(); err != nil {
+				logrus.Warnf("error while closing the socket %s", err)
+			}
+		}()
 		data, _ := proto.Marshal(request)
-		requester.Send(string(data), 0)
+		_, err = requester.Send(string(data), 0)
+		if err != nil {
+			return nil, errors.Wrap(err, "error while sending")
+		}
 		poller := zmq.NewPoller()
 		poller.Add(requester, zmq.POLLIN)
 		p, err := poller.Poll(k.Timeout)
@@ -55,7 +67,7 @@ func (k *Kraken) Call(request *pbnavitia.Request) (*pbnavitia.Response, error) {
 		_ = proto.Unmarshal([]byte(raw_resp), resp)
 		return resp, nil
 	})
-	if err != nil{
+	if err != nil {
 		return nil, err
 	}
 	return rep.(*pbnavitia.Response), nil
