@@ -4,15 +4,21 @@ import "github.com/kinnou02/gonavitia/responses"
 import "github.com/kinnou02/gonavitia/pbnavitia"
 import "time"
 
-func NewJourneysReponse(pb *pbnavitia.Response) responses.JourneysResponse {
+func NewJourneysReponse(pb *pbnavitia.Response) *responses.JourneysResponse {
+	if pb == nil {
+		return nil
+	}
 	r := responses.JourneysResponse{}
 	for _, pb_journey := range pb.Journeys {
 		r.Journeys = append(r.Journeys, NewJourney(pb_journey))
 	}
-	return r
+	return &r
 }
 
 func NewJourney(pb *pbnavitia.Journey) *responses.Journey {
+	if pb == nil {
+		return nil
+	}
 	journey := responses.Journey{
 		From:              NewPlace(pb.Origin),
 		To:                NewPlace(pb.Destination),
@@ -29,6 +35,9 @@ func NewJourney(pb *pbnavitia.Journey) *responses.Journey {
 }
 
 func NewSection(pb *pbnavitia.Section) *responses.Section {
+	if pb == nil {
+		return nil
+	}
 	section := responses.Section{
 		From: NewPlace(pb.Origin),
 		To:   NewPlace(pb.Destination),
