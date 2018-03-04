@@ -1,0 +1,3 @@
+[submodule "pbnavitia/proto"]
+	path = pbnavitia/proto
+	url = https://github.com/CanalTP/navitia-proto.git

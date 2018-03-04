@@ -2,7 +2,7 @@ package gonavitia
 
 import (
 	"github.com/golang/protobuf/proto"
-	"github.com/kinnou02/pbnavitia"
+	"github.com/kinnou02/gonavitia/pbnavitia"
 	zmq "github.com/pebbe/zmq2"
 	"github.com/pkg/errors"
 	"time"

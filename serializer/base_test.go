@@ -1,6 +1,6 @@
 package serializer
 
-import "github.com/kinnou02/pbnavitia"
+import "github.com/kinnou02/gonavitia/pbnavitia"
 import "testing"
 import "github.com/stretchr/testify/assert"
 import "github.com/golang/protobuf/proto"

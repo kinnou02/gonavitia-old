@@ -1,7 +1,7 @@
 package serializer
 
 import "github.com/kinnou02/gonavitia/responses"
-import "github.com/kinnou02/pbnavitia"
+import "github.com/kinnou02/gonavitia/pbnavitia"
 
 
 func NewPlace(pb *pbnavitia.PtObject) *responses.Place{
