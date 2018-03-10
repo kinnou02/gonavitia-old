@@ -30,6 +30,7 @@ func NewJourney(pb *pbnavitia.Journey) *responses.Journey {
 		Status:            pb.GetMostSeriousDisruptionEffect(),
 		Durations:         NewDurations(pb.Durations),
 		Distances:         NewDistances(pb.Distances),
+		Tags:              make([]string, 0),
 	}
 	for _, pb_section := range pb.Sections {
 		journey.Sections = append(journey.Sections, NewSection(pb_section))
