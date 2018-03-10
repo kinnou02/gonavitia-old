@@ -24,9 +24,9 @@ func NewJourney(pb *pbnavitia.Journey) *responses.Journey {
 		To:                NewPlace(pb.Destination),
 		Duration:          pb.GetDuration(),
 		NbTransfers:       pb.GetNbTransfers(),
-		DepartureDateTime: time.Unix(int64(pb.GetDepartureDateTime()), 0),
-		ArrivalDateTime:   time.Unix(int64(pb.GetArrivalDateTime()), 0),
-		RequestedDateTime: time.Unix(int64(pb.GetRequestedDateTime()), 0),
+		DepartureDateTime: responses.NavitiaDatetime(time.Unix(int64(pb.GetDepartureDateTime()), 0)),
+		ArrivalDateTime:   responses.NavitiaDatetime(time.Unix(int64(pb.GetArrivalDateTime()), 0)),
+		RequestedDateTime: responses.NavitiaDatetime(time.Unix(int64(pb.GetRequestedDateTime()), 0)),
 		Status:            pb.GetMostSeriousDisruptionEffect(),
 		Durations:         NewDurations(pb.Durations),
 	}
@@ -41,11 +41,13 @@ func NewSection(pb *pbnavitia.Section) *responses.Section {
 		return nil
 	}
 	section := responses.Section{
-		From:     NewPlace(pb.Origin),
-		To:       NewPlace(pb.Destination),
-		Id:       pb.GetId(),
-		Duration: pb.GetDuration(),
-		Type:     pb.GetType().String(),
+		Id:                pb.GetId(),
+		From:              NewPlace(pb.Origin),
+		To:                NewPlace(pb.Destination),
+		DepartureDateTime: responses.NavitiaDatetime(time.Unix(int64(pb.GetBeginDateTime()), 0)),
+		ArrivalDateTime:   responses.NavitiaDatetime(time.Unix(int64(pb.GetEndDateTime()), 0)),
+		Duration:          pb.GetDuration(),
+		Type:              pb.GetType().String(),
 	}
 	return &section
 }
