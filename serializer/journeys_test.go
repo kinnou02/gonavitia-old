@@ -1,10 +1,13 @@
 package serializer
 
-import "time"
-import "github.com/kinnou02/gonavitia/pbnavitia"
-import "testing"
-import "github.com/stretchr/testify/assert"
-import "github.com/golang/protobuf/proto"
+import (
+	"github.com/golang/protobuf/proto"
+	"github.com/kinnou02/gonavitia/pbnavitia"
+	"github.com/kinnou02/gonavitia/responses"
+	"github.com/stretchr/testify/assert"
+	"testing"
+	"time"
+)
 
 func make_ptoject(id, name string) *pbnavitia.PtObject {
 	return &pbnavitia.PtObject{
@@ -54,8 +57,8 @@ func TestNewJourneyDirectPath(t *testing.T) {
 	assert.Nil(t, journey.From)
 	assert.Nil(t, journey.To)
 	assert.Equal(t, journey.Duration, *pb_journey.Duration)
-	assert.Equal(t, journey.DepartureDateTime, time.Unix(1000, 0))
-	assert.Equal(t, journey.ArrivalDateTime, time.Unix(1060, 0))
+	assert.Equal(t, journey.DepartureDateTime, responses.NavitiaDatetime(time.Unix(1000, 0)))
+	assert.Equal(t, journey.ArrivalDateTime, responses.NavitiaDatetime(time.Unix(1060, 0)))
 	assert.Equal(t, journey.NbTransfers, *pb_journey.NbTransfers)
 	assert.Equal(t, len(journey.Sections), len(pb_journey.Sections))
 }
