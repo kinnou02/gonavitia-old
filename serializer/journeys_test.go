@@ -8,8 +8,9 @@ import "github.com/golang/protobuf/proto"
 
 func make_ptoject(id, name string) *pbnavitia.PtObject {
 	return &pbnavitia.PtObject{
-		Uri:  &id,
-		Name: &name,
+		Uri:          &id,
+		Name:         &name,
+		EmbeddedType: pbnavitia.NavitiaType_STOP_AREA.Enum(),
 	}
 }
 

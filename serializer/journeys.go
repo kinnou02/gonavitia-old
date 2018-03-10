@@ -27,6 +27,8 @@ func NewJourney(pb *pbnavitia.Journey) *responses.Journey {
 		DepartureDateTime: time.Unix(int64(pb.GetDepartureDateTime()), 0),
 		ArrivalDateTime:   time.Unix(int64(pb.GetArrivalDateTime()), 0),
 		RequestedDateTime: time.Unix(int64(pb.GetRequestedDateTime()), 0),
+		Status:            pb.GetMostSeriousDisruptionEffect(),
+		Durations:         NewDurations(pb.Durations),
 	}
 	for _, pb_section := range pb.Sections {
 		journey.Sections = append(journey.Sections, NewSection(pb_section))
@@ -39,8 +41,25 @@ func NewSection(pb *pbnavitia.Section) *responses.Section {
 		return nil
 	}
 	section := responses.Section{
-		From: NewPlace(pb.Origin),
-		To:   NewPlace(pb.Destination),
+		From:     NewPlace(pb.Origin),
+		To:       NewPlace(pb.Destination),
+		Id:       pb.GetId(),
+		Duration: pb.GetDuration(),
+		Type:     pb.GetType().String(),
 	}
 	return &section
+}
+
+func NewDurations(pb *pbnavitia.Durations) *responses.Durations {
+	if pb == nil {
+		return nil
+	}
+	durations := responses.Durations{
+		Total:       pb.GetTotal(),
+		Walking:     pb.GetWalking(),
+		Bike:        pb.GetBike(),
+		Car:         pb.GetCar(),
+		Ridesharing: pb.GetRidesharing(),
+	}
+	return &durations
 }

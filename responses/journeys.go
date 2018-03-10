@@ -17,9 +17,22 @@ type Journey struct {
 	Type              *string    `json:"type"`
 	Tags              []string   `json:"tags"`
 	Sections          []*Section `json:"sections"`
+	Status            string     `json:"status"`
+	Durations         *Durations `json:"durations,omitempty"`
 }
 
 type Section struct {
-	From *Place `json:"from,omitempty"`
-	To   *Place `json:"to,omitempty"`
+	Id       string `json:"id"`
+	From     *Place `json:"from,omitempty"`
+	To       *Place `json:"to,omitempty"`
+	Duration int32  `json:"duration"`
+	Type     string `json:"type"`
+}
+
+type Durations struct {
+	Total       int32 `json:"total"`
+	Walking     int32 `json:"walking"`
+	Bike        int32 `json:"bike"`
+	Car         int32 `json:"car"`
+	Ridesharing int32 `json:"ridesharing"`
 }

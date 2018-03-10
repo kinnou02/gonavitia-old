@@ -10,8 +10,9 @@ func TestNewPlaceNil(t *testing.T) {
 }
 
 func TestNewPlace(t *testing.T) {
-	pb := pbnavitia.PtObject{Uri: proto.String("foo"), Name: proto.String("bar")}
+	pb := pbnavitia.PtObject{Uri: proto.String("foo"), Name: proto.String("bar"), EmbeddedType: pbnavitia.NavitiaType_STOP_AREA.Enum()}
 	place := NewPlace(&pb)
 	assert.Equal(t, *place.Id, "foo")
 	assert.Equal(t, *place.Name, "bar")
+	assert.Equal(t, *place.EmbeddedType, "STOP_AREA")
 }

@@ -38,6 +38,7 @@ lint: ## Run all the linters
 		--deadline=10m \
 		--exclude pbnavitia \
 		./...
+#--enable=golint \
 
 .PHONY: ci
 ci: lint test ## Run all the tests and code checks

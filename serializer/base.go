@@ -7,6 +7,12 @@ func NewPlace(pb *pbnavitia.PtObject) *responses.Place {
 	if pb == nil {
 		return nil
 	}
-	place := responses.Place{pb.Uri, pb.Name}
+	t := pb.EmbeddedType.String()
+	place := responses.Place{
+		Id:           pb.Uri,
+		Name:         pb.Name,
+		EmbeddedType: &t,
+		Quality:      pb.Quality,
+	}
 	return &place
 }
