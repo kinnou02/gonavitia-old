@@ -3,6 +3,7 @@ package serializer
 import "github.com/kinnou02/gonavitia/responses"
 import "github.com/kinnou02/gonavitia/pbnavitia"
 import "time"
+import "strings"
 
 func NewJourneysReponse(pb *pbnavitia.Response) *responses.JourneysResponse {
 	if pb == nil {
@@ -49,7 +50,7 @@ func NewSection(pb *pbnavitia.Section) *responses.Section {
 		DepartureDateTime: responses.NavitiaDatetime(time.Unix(int64(pb.GetBeginDateTime()), 0)),
 		ArrivalDateTime:   responses.NavitiaDatetime(time.Unix(int64(pb.GetEndDateTime()), 0)),
 		Duration:          pb.GetDuration(),
-		Type:              pb.GetType().String(),
+		Type:              strings.ToLower(pb.GetType().String()),
 	}
 	return &section
 }
@@ -72,11 +73,11 @@ func NewDistances(pb *pbnavitia.Distances) *responses.Distances {
 	if pb == nil {
 		return nil
 	}
-	durations := responses.Distances{
+	distances := responses.Distances{
 		Walking:     pb.GetWalking(),
 		Bike:        pb.GetBike(),
 		Car:         pb.GetCar(),
 		Ridesharing: pb.GetRidesharing(),
 	}
-	return &durations
+	return &distances
 }
