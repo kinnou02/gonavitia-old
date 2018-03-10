@@ -1,12 +1,13 @@
 package serializer
 
 import (
+	"testing"
+	"time"
+
 	"github.com/golang/protobuf/proto"
 	"github.com/kinnou02/gonavitia/pbnavitia"
 	"github.com/kinnou02/gonavitia/responses"
 	"github.com/stretchr/testify/assert"
-	"testing"
-	"time"
 )
 
 func make_ptoject(id, name string) *pbnavitia.PtObject {
