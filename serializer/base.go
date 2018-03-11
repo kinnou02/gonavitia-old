@@ -3,13 +3,14 @@ package serializer
 import (
 	"github.com/kinnou02/gonavitia/pbnavitia"
 	"github.com/kinnou02/gonavitia/responses"
+	"strings"
 )
 
 func NewPlace(pb *pbnavitia.PtObject) *responses.Place {
 	if pb == nil {
 		return nil
 	}
-	t := pb.EmbeddedType.String()
+	t := strings.ToLower(pb.EmbeddedType.String())
 	place := responses.Place{
 		Id:           pb.Uri,
 		Name:         pb.Name,
