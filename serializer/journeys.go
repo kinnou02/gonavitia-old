@@ -64,6 +64,7 @@ func NewSection(pb *pbnavitia.Section) *responses.Section {
 		GeoJson:           NewGeoJson(pb),
 		Mode:              mode,
 		TransferType:      transferType,
+		DisplayInfo:       NewPtDisplayInfo(pb.PtDisplayInformations),
 	}
 	return &section
 }
@@ -93,4 +94,24 @@ func NewDistances(pb *pbnavitia.Distances) *responses.Distances {
 		Ridesharing: pb.GetRidesharing(),
 	}
 	return &distances
+}
+
+func NewPtDisplayInfo(pb *pbnavitia.PtDisplayInfo) *responses.PtDisplayInfo {
+	if pb == nil {
+		return nil
+	}
+	info := responses.PtDisplayInfo{
+		Direction:      pb.Direction,
+		Code:           pb.Code,
+		Network:        pb.Network,
+		Color:          pb.Color,
+		Name:           pb.Name,
+		PhysicalMode:   pb.PhysicalMode,
+		Headsign:       pb.Headsign,
+		TextColor:      pb.TextColor,
+		CommercialMode: pb.CommercialMode,
+		Description:    pb.Description,
+	}
+	return &info
+
 }

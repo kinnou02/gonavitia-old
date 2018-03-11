@@ -31,6 +31,7 @@ type Section struct {
 	GeoJson           *GeoJson        `json:"geojson,omitempty"`
 	Mode              *string         `json:"mode,omitempty"`
 	TransferType      *string         `json:"transfer_type,omitempty"`
+	DisplayInfo       *PtDisplayInfo  `json:"display_informations,omitempty"`
 }
 
 type Durations struct {
@@ -47,4 +48,18 @@ type Distances struct {
 	Bike        int32 `json:"bike"`
 	Car         int32 `json:"car"`
 	Ridesharing int32 `json:"ridesharing"`
+}
+
+type PtDisplayInfo struct {
+	Direction      *string `json:"direction,omitempty"`
+	Code           *string `json:"code,omitempty"`
+	Network        *string `json:"network,omitempty"`
+	Color          *string `json:"color,omitempty"`
+	Name           *string `json:"name,omitempty"`
+	PhysicalMode   *string `json:"physical_mode,omitempty"`
+	Headsign       *string `json:"headsign,omitempty"`
+	Label          *string `json:"label,omitempty"`
+	TextColor      *string `json:"text_color,omitempty"`
+	CommercialMode *string `json:"commercial_mode,omitempty"`
+	Description    *string `json:"description,omitempty"`
 }
