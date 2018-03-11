@@ -30,6 +30,7 @@ type Section struct {
 	Type              string          `json:"type"`
 	GeoJson           *GeoJson        `json:"geojson,omitempty"`
 	Mode              *string         `json:"mode,omitempty"`
+	TransferType      *string         `json:"transfer_type,omitempty"`
 }
 
 type Durations struct {

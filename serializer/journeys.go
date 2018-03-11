@@ -48,6 +48,11 @@ func NewSection(pb *pbnavitia.Section) *responses.Section {
 		m := strings.ToLower(sn.Mode.String())
 		mode = &m
 	}
+	var transferType *string
+	if pb.TransferType != nil {
+		t := strings.ToLower(pb.TransferType.String())
+		transferType = &t
+	}
 	section := responses.Section{
 		Id:                pb.GetId(),
 		From:              NewPlace(pb.Origin),
@@ -58,6 +63,7 @@ func NewSection(pb *pbnavitia.Section) *responses.Section {
 		Type:              strings.ToLower(pb.GetType().String()),
 		GeoJson:           NewGeoJson(pb),
 		Mode:              mode,
+		TransferType:      transferType,
 	}
 	return &section
 }
