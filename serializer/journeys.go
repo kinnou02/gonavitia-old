@@ -51,6 +51,7 @@ func NewSection(pb *pbnavitia.Section) *responses.Section {
 		ArrivalDateTime:   responses.NavitiaDatetime(time.Unix(int64(pb.GetEndDateTime()), 0)),
 		Duration:          pb.GetDuration(),
 		Type:              strings.ToLower(pb.GetType().String()),
+		GeoJson:           NewGeoJson(pb),
 	}
 	return &section
 }

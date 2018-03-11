@@ -28,6 +28,7 @@ type Section struct {
 	ArrivalDateTime   NavitiaDatetime `json:"arrival_date_time"`
 	Duration          int32           `json:"duration"`
 	Type              string          `json:"type"`
+	GeoJson           *GeoJson        `json:"geojson,omitempty"`
 }
 
 type Durations struct {
