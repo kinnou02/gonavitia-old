@@ -43,6 +43,11 @@ func NewSection(pb *pbnavitia.Section) *responses.Section {
 	if pb == nil {
 		return nil
 	}
+	var mode *string
+	if sn := pb.StreetNetwork; sn != nil {
+		m := strings.ToLower(sn.Mode.String())
+		mode = &m
+	}
 	section := responses.Section{
 		Id:                pb.GetId(),
 		From:              NewPlace(pb.Origin),
@@ -52,6 +57,7 @@ func NewSection(pb *pbnavitia.Section) *responses.Section {
 		Duration:          pb.GetDuration(),
 		Type:              strings.ToLower(pb.GetType().String()),
 		GeoJson:           NewGeoJson(pb),
+		Mode:              mode,
 	}
 	return &section
 }

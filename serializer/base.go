@@ -1,9 +1,10 @@
 package serializer
 
 import (
+	"strings"
+
 	"github.com/kinnou02/gonavitia/pbnavitia"
 	"github.com/kinnou02/gonavitia/responses"
-	"strings"
 )
 
 func NewPlace(pb *pbnavitia.PtObject) *responses.Place {

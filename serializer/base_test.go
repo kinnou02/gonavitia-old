@@ -14,5 +14,5 @@ func TestNewPlace(t *testing.T) {
 	place := NewPlace(&pb)
 	assert.Equal(t, *place.Id, "foo")
 	assert.Equal(t, *place.Name, "bar")
-	assert.Equal(t, *place.EmbeddedType, "STOP_AREA")
+	assert.Equal(t, *place.EmbeddedType, "stop_area")
 }
