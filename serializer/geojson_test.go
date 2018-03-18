@@ -24,5 +24,5 @@ func TestNewGeoJson(t *testing.T) {
 	assert.Equal(t, "LineString", geo.Type)
 	assert.Equal(t, 1, len(geo.Properties))
 	assert.Equal(t, int32(19), geo.Properties[0]["length"])
-	assert.Equal(t, len(pb_section.Shape), len(geo.Coordinate))
+	assert.Equal(t, len(pb_section.Shape), len(geo.Coordinates))
 }
