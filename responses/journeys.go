@@ -32,6 +32,9 @@ type Section struct {
 	Mode              *string         `json:"mode,omitempty"`
 	TransferType      *string         `json:"transfer_type,omitempty"`
 	DisplayInfo       *PtDisplayInfo  `json:"display_informations,omitempty"`
+	Co2Emission       *Amount         `json:"co2_emission,omitempty"`
+	AdditionalInfo    []string        `json:"additional_informations,omitempty"`
+	Links             []Link          `json:"links,omitempty"`
 }
 
 type Durations struct {
@@ -62,4 +65,19 @@ type PtDisplayInfo struct {
 	TextColor      *string `json:"text_color,omitempty"`
 	CommercialMode *string `json:"commercial_mode,omitempty"`
 	Description    *string `json:"description,omitempty"`
+	Links          []Link  `json:"links,omitempty"`
+}
+
+type Amount struct {
+	Value float64 `json:"value"`
+	Unit  string  `json:"unit"`
+}
+type Link struct {
+	Title     *string `json:"title,omitempty"`
+	Id        *string `json:"id,omitempty"`
+	Href      *string `json:"href,omitempty"`
+	Rel       *string `json:"rel,omitempty"`
+	Type      *string `json:"type,omitempty"`
+	templated bool    `json:"title"`
+	internal  bool    `json:"internal"`
 }

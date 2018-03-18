@@ -65,7 +65,14 @@ func NewSection(pb *pbnavitia.Section) *responses.Section {
 		Mode:              mode,
 		TransferType:      transferType,
 		DisplayInfo:       NewPtDisplayInfo(pb.PtDisplayInformations),
+		Links:             make([]responses.Link, 0),
+		Co2Emission:       NewCo2Emission(pb.Co2Emission),
+		AdditionalInfo:    make([]string, 0),
 	}
+	for _, info := range pb.GetAdditionalInformations() {
+		section.AdditionalInfo = append(section.AdditionalInfo, strings.ToLower(info.String()))
+	}
+
 	return &section
 }
 
@@ -111,7 +118,20 @@ func NewPtDisplayInfo(pb *pbnavitia.PtDisplayInfo) *responses.PtDisplayInfo {
 		TextColor:      pb.TextColor,
 		CommercialMode: pb.CommercialMode,
 		Description:    pb.Description,
+		Links:          make([]responses.Link, 0),
 	}
 	return &info
+
+}
+
+func NewCo2Emission(pb *pbnavitia.Co2Emission) *responses.Amount {
+	if pb == nil {
+		return nil
+	}
+	co2 := responses.Amount{
+		Value: pb.GetValue(),
+		Unit:  pb.GetUnit(),
+	}
+	return &co2
 
 }
