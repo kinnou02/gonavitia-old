@@ -92,3 +92,30 @@ func TestNewJourneyResponseTwo(t *testing.T) {
 	response := NewJourneysReponse(&pb_response)
 	assert.Equal(t, len(response.Journeys), 2)
 }
+
+func TestNewLinksFromUriNil(t *testing.T) {
+	assert.Nil(t, NewLinksFromUris(nil))
+}
+
+func TestNewLinksFromUriOne(t *testing.T) {
+	pb := pbnavitia.Uris{
+		Company: proto.String("foo"),
+	}
+	res := NewLinksFromUris(&pb)
+	assert.Equal(t, len(res), 1)
+	assert.Equal(t, *res[0].Id, "foo")
+	assert.Equal(t, *res[0].Type, "company")
+}
+
+func TestNewLinksFromUriTwo(t *testing.T) {
+	pb := pbnavitia.Uris{
+		Company:      proto.String("foo"),
+		PhysicalMode: proto.String("pmode"),
+	}
+	res := NewLinksFromUris(&pb)
+	assert.Equal(t, len(res), 2)
+	assert.Equal(t, *res[0].Id, "foo")
+	assert.Equal(t, *res[0].Type, "company")
+	assert.Equal(t, *res[1].Id, "pmode")
+	assert.Equal(t, *res[1].Type, "physical_mode")
+}

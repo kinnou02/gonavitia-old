@@ -78,6 +78,6 @@ type Link struct {
 	Href      *string `json:"href,omitempty"`
 	Rel       *string `json:"rel,omitempty"`
 	Type      *string `json:"type,omitempty"`
-	templated bool    `json:"title"`
-	internal  bool    `json:"internal"`
+	Templated bool    `json:"title"`
+	Internal  bool    `json:"internal"`
 }

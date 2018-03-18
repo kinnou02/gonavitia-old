@@ -4,6 +4,7 @@ import "github.com/kinnou02/gonavitia/responses"
 import "github.com/kinnou02/gonavitia/pbnavitia"
 import "time"
 import "strings"
+import "github.com/golang/protobuf/proto"
 
 func NewJourneysReponse(pb *pbnavitia.Response) *responses.JourneysResponse {
 	if pb == nil {
@@ -65,9 +66,9 @@ func NewSection(pb *pbnavitia.Section) *responses.Section {
 		Mode:              mode,
 		TransferType:      transferType,
 		DisplayInfo:       NewPtDisplayInfo(pb.PtDisplayInformations),
-		Links:             make([]responses.Link, 0),
 		Co2Emission:       NewCo2Emission(pb.Co2Emission),
 		AdditionalInfo:    make([]string, 0),
+		Links:             NewLinksFromUris(pb.Uris),
 	}
 	for _, info := range pb.GetAdditionalInformations() {
 		section.AdditionalInfo = append(section.AdditionalInfo, strings.ToLower(info.String()))
@@ -134,4 +135,28 @@ func NewCo2Emission(pb *pbnavitia.Co2Emission) *responses.Amount {
 	}
 	return &co2
 
+}
+
+func NewLinksFromUris(pb *pbnavitia.Uris) []responses.Link {
+	if pb == nil {
+		return nil
+	}
+	res := make([]responses.Link, 0)
+	res = appendLinksFromUri(pb.Company, "company", &res)
+	res = appendLinksFromUri(pb.VehicleJourney, "vehicle_journey", &res)
+	res = appendLinksFromUri(pb.Line, "line", &res)
+	res = appendLinksFromUri(pb.Route, "route", &res)
+	res = appendLinksFromUri(pb.CommercialMode, "commercial_mode", &res)
+	res = appendLinksFromUri(pb.PhysicalMode, "physical_mode", &res)
+	res = appendLinksFromUri(pb.Network, "Network", &res)
+	res = appendLinksFromUri(pb.Note, "note", &res)
+	res = appendLinksFromUri(pb.JourneyPattern, "journey_pattern", &res)
+	return res
+}
+
+func appendLinksFromUri(pb *string, typ string, links *[]responses.Link) []responses.Link {
+	if pb == nil {
+		return *links
+	}
+	return append(*links, responses.Link{Id: pb, Type: proto.String(typ)})
 }
