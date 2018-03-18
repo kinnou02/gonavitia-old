@@ -101,7 +101,7 @@ func TestNewLinksFromUriOne(t *testing.T) {
 	pb := pbnavitia.Uris{
 		Company: proto.String("foo"),
 	}
-	res := NewLinksFromUris(&pb)
+	res := NewLinksFromUris(&pbnavitia.PtDisplayInfo{Uris: &pb})
 	assert.Equal(t, len(res), 1)
 	assert.Equal(t, *res[0].Id, "foo")
 	assert.Equal(t, *res[0].Type, "company")
@@ -112,7 +112,7 @@ func TestNewLinksFromUriTwo(t *testing.T) {
 		Company:      proto.String("foo"),
 		PhysicalMode: proto.String("pmode"),
 	}
-	res := NewLinksFromUris(&pb)
+	res := NewLinksFromUris(&pbnavitia.PtDisplayInfo{Uris: &pb})
 	assert.Equal(t, len(res), 2)
 	assert.Equal(t, *res[0].Id, "foo")
 	assert.Equal(t, *res[0].Type, "company")
