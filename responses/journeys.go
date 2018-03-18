@@ -33,7 +33,7 @@ type Section struct {
 	TransferType      *string         `json:"transfer_type,omitempty"`
 	DisplayInfo       *PtDisplayInfo  `json:"display_informations,omitempty"`
 	Co2Emission       *Amount         `json:"co2_emission,omitempty"`
-	AdditionalInfo    []string        `json:"additional_informations,omitempty"`
+	AdditionalInfo    []string        `json:"additional_informations"`
 	Links             []Link          `json:"links,omitempty"`
 }
 
@@ -78,6 +78,6 @@ type Link struct {
 	Href      *string `json:"href,omitempty"`
 	Rel       *string `json:"rel,omitempty"`
 	Type      *string `json:"type,omitempty"`
-	Templated bool    `json:"title"`
-	Internal  bool    `json:"internal"`
+	Templated *bool   `json:"title,omitempty"`
+	Internal  *bool   `json:"internal,omitempty"`
 }

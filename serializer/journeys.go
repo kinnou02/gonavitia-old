@@ -68,7 +68,7 @@ func NewSection(pb *pbnavitia.Section) *responses.Section {
 		DisplayInfo:       NewPtDisplayInfo(pb.PtDisplayInformations),
 		Co2Emission:       NewCo2Emission(pb.Co2Emission),
 		AdditionalInfo:    make([]string, 0),
-		Links:             NewLinksFromUris(pb.Uris),
+		Links:             NewLinksFromUris(pb.PtDisplayInformations),
 	}
 	for _, info := range pb.GetAdditionalInformations() {
 		section.AdditionalInfo = append(section.AdditionalInfo, strings.ToLower(info.String()))
@@ -137,20 +137,21 @@ func NewCo2Emission(pb *pbnavitia.Co2Emission) *responses.Amount {
 
 }
 
-func NewLinksFromUris(pb *pbnavitia.Uris) []responses.Link {
-	if pb == nil {
+func NewLinksFromUris(pb *pbnavitia.PtDisplayInfo) []responses.Link {
+	if pb == nil || pb.Uris == nil {
 		return nil
 	}
+	uris := pb.Uris
 	res := make([]responses.Link, 0)
-	res = appendLinksFromUri(pb.Company, "company", &res)
-	res = appendLinksFromUri(pb.VehicleJourney, "vehicle_journey", &res)
-	res = appendLinksFromUri(pb.Line, "line", &res)
-	res = appendLinksFromUri(pb.Route, "route", &res)
-	res = appendLinksFromUri(pb.CommercialMode, "commercial_mode", &res)
-	res = appendLinksFromUri(pb.PhysicalMode, "physical_mode", &res)
-	res = appendLinksFromUri(pb.Network, "Network", &res)
-	res = appendLinksFromUri(pb.Note, "note", &res)
-	res = appendLinksFromUri(pb.JourneyPattern, "journey_pattern", &res)
+	res = appendLinksFromUri(uris.Company, "company", &res)
+	res = appendLinksFromUri(uris.VehicleJourney, "vehicle_journey", &res)
+	res = appendLinksFromUri(uris.Line, "line", &res)
+	res = appendLinksFromUri(uris.Route, "route", &res)
+	res = appendLinksFromUri(uris.CommercialMode, "commercial_mode", &res)
+	res = appendLinksFromUri(uris.PhysicalMode, "physical_mode", &res)
+	res = appendLinksFromUri(uris.Network, "Network", &res)
+	res = appendLinksFromUri(uris.Note, "note", &res)
+	res = appendLinksFromUri(uris.JourneyPattern, "journey_pattern", &res)
 	return res
 }
 
