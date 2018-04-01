@@ -7,6 +7,27 @@ import (
 	"github.com/kinnou02/gonavitia/responses"
 )
 
+func NewError(pb *pbnavitia.Error) *responses.Error {
+	if pb == nil {
+		return nil
+	}
+	id := pb.Id.Enum().String()
+	return &responses.Error{
+		Id:      &id,
+		Message: pb.Message,
+	}
+}
+
+func NewCode(pb *pbnavitia.Code) *responses.Code {
+	if pb == nil {
+		return nil
+	}
+	return &responses.Code{
+		Type:  pb.Type,
+		Value: pb.Value,
+	}
+}
+
 func NewPlace(pb *pbnavitia.PtObject) *responses.Place {
 	if pb == nil {
 		return nil
@@ -56,14 +77,18 @@ func NewStopPoint(pb *pbnavitia.StopPoint) *responses.StopPoint {
 		return nil
 	}
 	sp := responses.StopPoint{
-		Id:     pb.Uri,
-		Name:   pb.Name,
-		Label:  pb.Label,
-		Coord:  NewCoord(pb.Coord),
-		Admins: make([]*responses.Admin, 0),
+		Id:       pb.Uri,
+		Name:     pb.Name,
+		Label:    pb.Label,
+		Coord:    NewCoord(pb.Coord),
+		Admins:   make([]*responses.Admin, 0),
+		StopArea: NewStopArea(pb.StopArea),
 	}
 	for _, pb_admin := range pb.AdministrativeRegions {
 		sp.Admins = append(sp.Admins, NewAdmin(pb_admin))
+	}
+	for _, code := range pb.Codes {
+		sp.Codes = append(sp.Codes, NewCode(code))
 	}
 	return &sp
 }
@@ -82,6 +107,12 @@ func NewStopArea(pb *pbnavitia.StopArea) *responses.StopArea {
 	}
 	for _, pb_admin := range pb.AdministrativeRegions {
 		sa.Admins = append(sa.Admins, NewAdmin(pb_admin))
+	}
+	for _, code := range pb.Codes {
+		sa.Codes = append(sa.Codes, NewCode(code))
+	}
+	for _, sp := range pb.StopPoints {
+		sa.StopPoints = append(sa.StopPoints, NewStopPoint(sp))
 	}
 	return &sa
 }

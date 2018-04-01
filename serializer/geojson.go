@@ -20,3 +20,23 @@ func NewGeoJson(pb *pbnavitia.Section) *responses.GeoJson {
 
 	return &g
 }
+
+func NewGeoJsonMultistring(pb *pbnavitia.MultiLineString) *responses.GeoJsonMultilineString {
+	if pb == nil {
+		return nil
+	}
+	g := responses.GeoJsonMultilineString{
+		Type:        "MultiLineString",
+		Coordinates: make([][][]float64, 0, len(pb.Lines)),
+	}
+
+	for _, line := range pb.Lines {
+		l := make([][]float64, 0, len(line.Coordinates))
+		for _, coord := range line.Coordinates {
+			l = append(l, []float64{coord.GetLon(), coord.GetLat()})
+		}
+		g.Coordinates = append(g.Coordinates, l)
+	}
+
+	return &g
+}

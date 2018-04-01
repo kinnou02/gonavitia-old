@@ -16,6 +16,18 @@ type Place struct {
 	Address      *Address   `json:"address,omitempty"`
 }
 
+type Pagination struct {
+	StartPage    int32 `json:"start_page"`
+	ItemsOnPage  int32 `json:"items_on_page"`
+	ItemsPerPage int32 `json:"items_per_page"`
+	TotalResult  int32 `json:"total_result"`
+}
+
+type Error struct {
+	Id      *string `json:"id"`
+	Message *string `json:"message"`
+}
+
 type NavitiaDatetime time.Time
 
 func (t NavitiaDatetime) MarshalJSON() ([]byte, error) {
@@ -29,21 +41,30 @@ type Coord struct {
 	Lon float64 `json:"lon"`
 }
 
+type Code struct {
+	Type  *string `json:"type"`
+	Value *string `json:"value"`
+}
+
 type StopArea struct {
-	Id       *string  `json:"id"`
-	Name     *string  `json:"name"`
-	Label    *string  `json:"label"`
-	Timezone *string  `json:"Timezone,omitempty"`
-	Coord    *Coord   `json:"coord"`
-	Admins   []*Admin `json:"administrative_regions"`
+	Id         *string      `json:"id"`
+	Name       *string      `json:"name"`
+	Label      *string      `json:"label"`
+	Timezone   *string      `json:"Timezone,omitempty"`
+	Coord      *Coord       `json:"coord"`
+	Admins     []*Admin     `json:"administrative_regions"`
+	Codes      []*Code      `json:"codes,omitempty"`
+	StopPoints []*StopPoint `json:"stop_points,omitempty"`
 }
 
 type StopPoint struct {
-	Id     *string  `json:"id"`
-	Name   *string  `json:"name"`
-	Label  *string  `json:"label"`
-	Coord  *Coord   `json:"coord"`
-	Admins []*Admin `json:"administrative_regions"`
+	Id       *string   `json:"id"`
+	Name     *string   `json:"name"`
+	Label    *string   `json:"label"`
+	Coord    *Coord    `json:"coord"`
+	Admins   []*Admin  `json:"administrative_regions"`
+	Codes    []*Code   `json:"codes,omitempty"`
+	StopArea *StopArea `json:"stop_area,omitempty"`
 }
 
 type Admin struct {

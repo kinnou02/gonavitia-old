@@ -54,18 +54,18 @@ type Distances struct {
 }
 
 type PtDisplayInfo struct {
-	Direction      *string `json:"direction,omitempty"`
-	Code           *string `json:"code,omitempty"`
-	Network        *string `json:"network,omitempty"`
-	Color          *string `json:"color,omitempty"`
-	Name           *string `json:"name,omitempty"`
-	PhysicalMode   *string `json:"physical_mode,omitempty"`
-	Headsign       *string `json:"headsign,omitempty"`
-	Label          *string `json:"label,omitempty"`
-	TextColor      *string `json:"text_color,omitempty"`
-	CommercialMode *string `json:"commercial_mode,omitempty"`
-	Description    *string `json:"description,omitempty"`
-	Links          []Link  `json:"links,omitempty"`
+	Direction      *string `json:"direction"`
+	Code           *string `json:"code"`
+	Network        *string `json:"network"`
+	Color          *string `json:"color"`
+	Name           *string `json:"name"`
+	PhysicalMode   *string `json:"physical_mode"`
+	Headsign       *string `json:"headsign"`
+	Label          *string `json:"label"`
+	TextColor      *string `json:"text_color"`
+	CommercialMode *string `json:"commercial_mode"`
+	Description    *string `json:"description"`
+	Links          []Link  `json:"links"`
 }
 
 type Amount struct {
@@ -77,7 +77,8 @@ type Link struct {
 	Id        *string `json:"id,omitempty"`
 	Href      *string `json:"href,omitempty"`
 	Rel       *string `json:"rel,omitempty"`
+	Value     *string `json:"value,omitempty"`
 	Type      *string `json:"type,omitempty"`
-	Templated *bool   `json:"title,omitempty"`
+	Templated *bool   `json:"templated,omitempty"`
 	Internal  *bool   `json:"internal,omitempty"`
 }
