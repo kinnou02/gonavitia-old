@@ -12,7 +12,7 @@ type Disruption struct {
 	Status             *string              `json:"status,omitempty"`
 	Tags               []string             `json:"tags,omitempty"`
 	UpdatedAt          NavitiaDatetime      `json:"updated_at,omitempty"`
-	Severity           *Severity            `json:"severity`
+	Severity           *Severity            `json:"severity"`
 	ApplicationPeriods []*Period            `json:"application_periods"`
 	Properties         []DisruptionProperty `json:"properties,omitempty"`
 	Messages           []*Message           `json:"messages"`

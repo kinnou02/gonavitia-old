@@ -1,10 +1,11 @@
 package serializer
 
 import (
-	"github.com/kinnou02/gonavitia/pbnavitia"
-	"github.com/kinnou02/gonavitia/responses"
 	"strings"
 	"time"
+
+	"github.com/kinnou02/gonavitia/pbnavitia"
+	"github.com/kinnou02/gonavitia/responses"
 )
 
 func NewDisruption(pb *pbnavitia.Impact) *responses.Disruption {

@@ -1,11 +1,12 @@
 package serializer
 
 import (
+	"strings"
+	"time"
+
 	"github.com/golang/protobuf/proto"
 	"github.com/kinnou02/gonavitia/pbnavitia"
 	"github.com/kinnou02/gonavitia/responses"
-	"strings"
-	"time"
 )
 
 func NewRouteSchedulesResponse(pb *pbnavitia.Response) *responses.RouteScheduleResponse {
