@@ -47,8 +47,8 @@ func NewTable(pb *pbnavitia.Table) *responses.Table {
 		return nil
 	}
 	t := responses.Table{
-		Headers: make([]*responses.Header, 0),
-		Rows:    make([]*responses.Row, 0),
+		Headers: make([]*responses.Header, 0, len(pb.Headers)),
+		Rows:    make([]responses.Row, 0, len(pb.Rows)),
 	}
 	for _, h := range pb.Headers {
 		t.Headers = append(t.Headers, NewHeader(h))
@@ -70,26 +70,26 @@ func NewHeader(pb *pbnavitia.Header) *responses.Header {
 	}
 }
 
-func NewRow(pb *pbnavitia.RouteScheduleRow) *responses.Row {
+func NewRow(pb *pbnavitia.RouteScheduleRow) responses.Row {
 	if pb == nil {
-		return nil
+		return responses.Row{}
 	}
 	r := responses.Row{
 		StopPoint: NewStopPoint(pb.StopPoint),
-		DateTimes: make([]*responses.DateTime, 0, len(pb.DateTimes)),
+		DateTimes: make([]responses.DateTime, 0, len(pb.DateTimes)),
 	}
 	for _, d := range pb.DateTimes {
 		r.DateTimes = append(r.DateTimes, NewDatetime(d))
 	}
-	return &r
+	return r
 }
 
-func NewDatetime(pb *pbnavitia.ScheduleStopTime) *responses.DateTime {
+func NewDatetime(pb *pbnavitia.ScheduleStopTime) responses.DateTime {
 	if pb == nil {
-		return nil
+		return responses.DateTime{}
 	}
 	rtLevel := strings.ToLower(pb.GetRealtimeLevel().Enum().String())
-	return &responses.DateTime{
+	return responses.DateTime{
 		DateTime:       responses.NavitiaDatetime(time.Unix(int64(pb.GetDate()+pb.GetTime()), 0)),
 		BaseDateTime:   responses.NavitiaDatetime(time.Unix(int64(pb.GetBaseDateTime()), 0)),
 		AdditionalInfo: make([]string, 0),
@@ -99,7 +99,7 @@ func NewDatetime(pb *pbnavitia.ScheduleStopTime) *responses.DateTime {
 }
 
 func NewLinksFromProperties(pb *pbnavitia.Properties) []responses.Link {
-	result := []responses.Link{}
+	result := make([]responses.Link, 0, 1)
 	if pb == nil {
 		return result
 	}

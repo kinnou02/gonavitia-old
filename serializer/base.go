@@ -81,8 +81,9 @@ func NewStopPoint(pb *pbnavitia.StopPoint) *responses.StopPoint {
 		Name:     pb.Name,
 		Label:    pb.Label,
 		Coord:    NewCoord(pb.Coord),
-		Admins:   make([]*responses.Admin, 0),
+		Admins:   make([]*responses.Admin, len(pb.AdministrativeRegions)),
 		StopArea: NewStopArea(pb.StopArea),
+		Codes:    make([]*responses.Code, 0, len(pb.Codes)),
 	}
 	for _, pb_admin := range pb.AdministrativeRegions {
 		sp.Admins = append(sp.Admins, NewAdmin(pb_admin))
@@ -103,7 +104,8 @@ func NewStopArea(pb *pbnavitia.StopArea) *responses.StopArea {
 		Label:    pb.Label,
 		Timezone: pb.Timezone,
 		Coord:    NewCoord(pb.Coord),
-		Admins:   make([]*responses.Admin, 0),
+		Admins:   make([]*responses.Admin, 0, len(pb.AdministrativeRegions)),
+		Codes:    make([]*responses.Code, 0, len(pb.Codes)),
 	}
 	for _, pb_admin := range pb.AdministrativeRegions {
 		sa.Admins = append(sa.Admins, NewAdmin(pb_admin))

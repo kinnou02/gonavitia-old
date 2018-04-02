@@ -16,7 +16,7 @@ type RouteSchedule struct {
 
 type Table struct {
 	Headers []*Header `json:"headers"`
-	Rows    []*Row    `json:"rows"`
+	Rows    []Row     `json:"rows"`
 }
 
 type Header struct {
@@ -26,8 +26,8 @@ type Header struct {
 }
 
 type Row struct {
-	StopPoint *StopPoint  `json:"stop_point"`
-	DateTimes []*DateTime `json:"date_times"`
+	StopPoint *StopPoint `json:"stop_point"`
+	DateTimes []DateTime `json:"date_times"`
 }
 
 type DateTime struct {
